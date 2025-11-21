@@ -154,35 +154,35 @@
         "title": "PCM Midterms",
         "type": "quiz",
         "image": "https://i.imgur.com/T6tlHHA.jpeg",
-        "description": "Although technically not a quiz, its impact is too great for me to not mention. This exam was the first time i've felt true despair over my grade, most especially in a zero-grade base system. It is however my fault, but it's still a very heartbreaking academic experience.",
+        "description": "Although technically not a quiz, its impact is too great for me to not mention. This exam was the first time i've felt true despair over my grade, most especially in a zero-grade based system. It is, however, my fault, but it's still a very heartbreaking academic experience.",
         "offset": [0, 0]
       },
       {
         "title": "NSTP Quizzes",
         "type": "quiz",
         "image": "https://i.imgur.com/wHzpBc3.jpeg",
-        "description": "Personally speaking, I've found our NSTP quizzes to be fairly achieeable to pass in terms of difficulty. Only added it here because I found a lot of our quizzes in NSTP to be fairly alright in difficulty, except that one time where we had to memorize the entirety of RA 9163.",
+        "description": "Personally speaking, I've found our NSTP quizzes to be fairly achievable to pass in terms of difficulty. To be frank, most of the latest quizzes can be passed by using logic alone, and that's why I somewhat prefer the older quizzes we had, such as the RA 9163 quiz.",
         "offset": [0, 0]
       },
       {
         "title": "PCM Activity",
         "type": "activity",
         "image": "https://i.imgur.com/ITtxZN6.jpeg",
-        "description": "I wanted to use the poster activity we did, but oh well this is close enough. A bit bummed that I got a lower-than-expected score :(.",
+        "description": "I was always an artist ever since I was a child, and so I get excited whenever we have an activity that involves art. Although the score I got for the drawing was fine, I was still a bit disappointed that I didn't get as high as I hoped it to be. Of course, I got over that now, since I recognized that the content of the drawing itself wasn't that great...",
         "offset": [0, 0]
       },
       {
         "title": "MMW Activity",
         "type": "activity",
         "image": "https://i.imgur.com/XRQuKTY.jpeg",
-        "description": "I've always found math fun despite its difficulty, and I was really happy when I got all of the items correct in this particular activity.",
+        "description": "I've always found math fun despite its difficulty, and I was really happy when I got all of the items correct in this particular activity. This is one of the activities where I had to relearn the module before finally understanding how it works, but it was still fun despite said difficulties.",
         "offset": [0, 0]
       },
       {
         "title": "MMW Quizzes",
         "type": "quiz",
         "image": "https://i.imgur.com/Rzewp3q.jpeg",
-        "description": "I enjoyed applying my knowledge to these quizzes, as I get to solve the problems without having to compete with my classmates to answer during lessons lmfao. There are still instances where I got frustrated over not getting a perfect score, mostly because we can't see what are the correct answers, but undoubtedly I still enjoyed them a lot.",
+        "description": "I enjoyed applying my knowledge to these quizzes, as I get to solve the problems without having to compete with my classmates to answer during lessons haha! There are still instances where I got frustrated over not getting a perfect score, mostly because we can't see what the correct answers are, but undoubtedly I still enjoyed them a lot.",
         "offset": [0, 0]
       },
       {
@@ -196,21 +196,21 @@
         "title": "Bahay ni Elie",
         "type": "projects",
         "image": "blob:https://imgur.com/91f70a5f-d3c8-4441-886f-cbe76efe6687",
-        "description": "This undoubtedly a project that I've enjoyed a lot, despite the first few days being awkward... For this project, we were tasked with 'living' in a household with only Php560 per day. As you can tell by the title, my house ended up being the location chosen for the project. Having to budget the daily necessities of four people and cooking for them is personally one of my favorite parts of the experience. Overall, it was a memorable experience that resulted in a great video output edited by Lander!",
+        "description": "This is undoubtedly a project that I've enjoyed a lot, despite the first few days being awkward... For this project, we were tasked with 'living' in a household with only Php560 per day. As you can tell by the title, my house ended up being the location chosen for the project. Having to budget the daily necessities of four people and cooking for them is personally one of my favorite parts of the experience. Overall, it was a memorable experience that resulted in a great video output edited by Lander!",
         "offset": [0, 0]
       },
       {
         "title": "Vier Website",
         "type": "project",
         "image": "https://i.imgur.com/dnDyz6c.png",
-        "description": "Haha very funny——",
+        "description": "Haha very funny——Making this website was undoubtedly a very tiring experience, mainly because me and Jonathan insisted on making it from scratch... Speaking of which, I want to thank Jonathan for being the main programmer of this, since I don't have much expertise in Javascript, and Lander and Angelo doesn't know how to code a website from scratch. Truthfully, it would've been easier and faster if we stuck with templates, but I would'nt deny that making this was a lot of fun.",
         "offset": [0, 0]
       },
       {
         "title": "Calumpit Advert",
         "type": "project",
         "image": "https://i.imgur.com/tw3vnnO.png",
-        "description": "Calumpti",
+        "description": "The project is split into two promotional materials for Calumpit: Flyer and Video. I was a lot more involved in designing the promotional flyer, as I was the main editor, and that experience was... not that great in terms of cramming. Although I did learn to like the output that I designed. As for the video, I contributed to making the drone footage of certain places in Calumpit. Even though it's unrelated, the capturing of the drone footage became a short family trip as well, so it was a nice experience as well.",
         "offset": [0, 0]
       }
     ]
