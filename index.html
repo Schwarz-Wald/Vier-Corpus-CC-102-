@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Axiom: Student Portfolio</title>
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200..700&display=swap" rel="stylesheet">
+</head>
+  
+<body>
+  <div class="main-container">
+    <button class="color-mode-container" data-color="light">
+      <div class="color-mode-button">
+        <img src="graphics/svgs/sun-mode.svg" loading="lazy" decoding="async">
+      </div>
+    </button>
+    <img src="graphics/svgs/vier.svg" class="small-logo-icon transition-button" loading="lazy" decoding="async">
+    <div class="menu-page">
+      <img src="graphics/svgs/vier.svg" loading="lazy" decoding="async"> 
+      <div class="button-container">
+        <button class="guest-button transition-button">Guest</button>
+        <button class="admin-button transition-button"> Admin</button>
+      </div>
+    </div>
+    <div class="directory-page">
+      <div class="button-container">
+        <button id="quiz-butt" class="quiz-button" data-type="quiz">
+          <span>Quizzes</span>
+        </button>
+        <button id="activity-butt" class="activity-button" data-type="activity">
+          <span>Activities</span>
+        </button>
+        <button id="project-butt" class="project-button transition-button" data-type="project">
+          <span>Projects</span>
+        </button>
+      </div>
+    </div>
+    <div class="profile-page">
+      <span class="title-text">Student Profiles</span>
+      <div class="user-container">
+        <div class="block-container">
+          <div class="user-block">
+            <button class="user transition-button" data-user="jonathan" style="background-image: url('graphics/icons/CC-102-3.svg')"></button>
+            <span class="username">Jonathan</span>
+          </div>
+          <div class="user-block">
+            <button class="user transition-button" data-user="elie" style="background-image: url('graphics/icons/CC-102-4.svg')"></button>
+            <span class="username">Elie</span>
+          </div>
+          <div class="user-block">
+            <button class="user transition-button" data-user="lander" style="background-image: url('graphics/icons/CC-102-2.svg')"></button>
+            <span class="username">Lander</span>
+          </div>
+          <div class="user-block">
+            <button class="user transition-button" data-user="angelo" style="background-image: url('graphics/icons/CC-102-1.svg')"></button>
+            <span class="username">Angelo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="projects-page">
+      <div class="button-container">
+        <button class="TCW">
+          <span>TCW</span>
+        </button>
+        <button class="PPT">
+          <span>PPT</span>
+        </button>
+      </div>
+    </div>
+    <div class="content-page">
+      <button class="back-button transition-button">Back</button>
+      <div class="navigation-container">
+        <button class="navigation-button transition-button" data-shuffle="1">
+          <img src="graphics/icons/CC-102-1.svg" loading="lazy" decoding="async">
+        </button>
+        <button class="navigation-button transition-button" data-shuffle="2">
+          <img src="graphics/icons/CC-102-2.svg" loading="lazy" decoding="async">
+        </button>
+        <button class="navigation-button transition-button" data-shuffle="3">
+          <img src="graphics/icons/CC-102-3.svg" loading="lazy" decoding="async">
+        </button>
+      </div>
+      <div class="header-container">
+        <div src="graphics/profile/schwarz-profile.jpg" class="profile-picture">
+          <img src="graphics/profile/schwarz-profile.jpg" loading="lazy" decoding="async">
+        </div>
+        <div class="text-container">
+          <span class="username">
+            <span class="main">Schwarzwald</span>
+            <span class="sub"></span>
+          </span>
+          <span class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+        </div>
+      </div>
+      <div class="body-container">
+        <div class="block-container">
+          <div class="blog-cell">
+            <div class="cell-header">
+              <span class="blogTitle">BLOG POST</span>
+            </div>
+          </div>
+          <div class="blog-cell">
+            <div class="cell-header">
+              <span class="blogTitle">BLOG POST</span>
+            </div>
+          </div>
+          <div class="blog-cell">
+            <div class="cell-header">
+              <span class="blogTitle">BLOG POST</span>
+            </div>
+          </div>
+          <div class="blog-cell">
+            <div class="cell-header">
+              <span class="blogTitle">BLOG POST</span>
+            </div>
+          </div>
+          <div class="blog-cell">
+            <div class="cell-header">
+              <span class="blogTitle">BLOG POST</span>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="overlay-container">
+      <div class="blog-container">
+        <img src="https://i.imgur.com/3iRCVXl.jpeg">
+      </div>
+      <div class="info-container">
+        <img class="profile-picture" src="graphics/profile/schwarz-profile.jpg">
+        <div class="text-container">
+          <span class="title">Text</span>
+          <span class="description">
+            This magazine project in Readings in Philippine History is probably the one i got stressed out the most, because we're required to wear "Barong" clothing that is sadly i don't have. Thankfully, Elie's dad have one, which i used taking pictures in Francisco Soc Rodrigo Ancestral House. I also learned while making the content of my magazine that no matter how much we advanced in technologies, we should always values the historical places because it's tied to our identity, culture, and nationalism.
+          </span>
+        </div>
+        <div class="footer-container"></div>
+      </div>
+    </div>
+    <div class="transition-container">
+      <h1 class="transition-box"></h1>
+    </div>
+  </div>
+</body>
+
+<footer>
+  <template value="blog-cell">
+    <div class="blog-cell">
+      <div class="cell-header">
+        <span class="blogTitle">BLOG POST</span>
+      </div>
+      <img class="thumbnail" loading="lazy" decoding="async">
+    </div>
+  </template>
+</footer>
+
+</html>
+
+
+

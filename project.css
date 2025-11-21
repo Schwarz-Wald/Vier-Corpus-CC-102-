@@ -1,0 +1,56 @@
+.overlay-container {
+  position: absolute;
+  display: flex;
+  top: 0; left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: spaced-evenly;
+  align-items: center;
+  z-index: 10;
+  gap: 1.5%;
+}
+
+.overlay-container .blog-container {
+  height: 85%;
+  aspect-ratio: 6/5;
+  background-color: white;
+  border-radius: 30px;
+  border: 5px solid rgba(0, 0, 0, 0.8);
+  margin: 0% 2.7% 0% 2.75%;
+  display: flex;
+  overflow: hidden;
+}
+
+.overlay-container .blog-container img {
+  bottom: 0; left: 0;
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
+  z-index: 5;
+  overflow: hidden;
+  filter: blur(50px);
+}
+
+.overlay-container .text-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 43%;
+  background: white;
+  justify-content: baseline;
+  align-items: center;
+  gap: 30px;
+  overflow: hidden;
+}
+
+.text-container .title{
+  font-size: 8rem; /*rem: 1rem, 1.25rem 2rem */
+  margin-top: 10%;
+}
+
+.text-container .description {
+  font-size: 2rem;
+  text-align: justify;
+  padding: 0px 25px 0px 25px;
+}
