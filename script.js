@@ -1,863 +1,567 @@
-:root {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-
-  --background-color: #ffffff;
-  --button-color: #2F333F;
-  --text-color: white;
-
-  --profile-backdrop: rgba(255, 255, 255, 0.33);
+const menuPage = document.querySelector("div.menu-page");
+const directoryPage = document.querySelector("div.directory-page");
+const profilePage = document.querySelector("div.profile-page");
+const projectsPage = document.querySelector("div.projects-page");
+const contentPage = document.querySelector("div.content-page");
+const transitionPage = document.querySelector("div.transition-container");
+const overlayContainer = document.querySelector(".overlay-container");
+if (!menuPage) {
+    throw new Error("Menu container not found");
 }
 
-body {
-  margin: 0px;
+const rootElement = document.documentElement;
+
+const smallLogoIcon = document.querySelector(".small-logo-icon");
+const colorModeButton = document.querySelector("button.color-mode-container");
+const colorModeImg = colorModeButton.querySelector("img");
+
+const guestButton = menuPage.querySelector("button.guest-button");
+const adminButton = menuPage.querySelector("button.admin-button");
+
+async function Delay(s) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, s * 1000);
+  });
 }
 
-button {
-  background-color: transparent;
-  border: 0px;
-  font-family: 'montserrat';
-  touch-action: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
+function PreloadImages() {
+  const images = [
+    'graphics/profile/schwarz-profile.jpg',
+    'graphics/profile/elie-profile.png', 
+    'graphics/profile/lander-profile.jpg',
+    'graphics/profile/angelo-profile.jpg',
+    "graphics/profile/default-profile.webp"
+  ];
+
+  images.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
 }
 
-img {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+PreloadImages();
 
-  transform: translateZ(0);
-  backface-visibility: hidden;
-
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-img[loading="lazy"] {
-  filter: blur(0px);
-  transition: filter 0.3s ease;
-}
-
-img:not([src]) {
-  background: #f0f0f0;
-  min-height: 100px;
-}
-
-img[src=""], 
-img:not([src]) {
-  display: none;
-}
-
-.main-container {
-  position: relative;
-  display: flex;
-  background-color: var(--background-color);
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-}
-
-.transition-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: white;
-  z-index: 10;
-  opacity: 0%;
-  pointer-events: none;
-}
-
-.transition-anim {
-  background-color: red;
-}
-
-/* Switch Button */
-
-.color-mode-container {
-  position: absolute;
-  display: flex;
-  top: 1.5%; right: 1%;
-  height: 8%;
-  width: 8%;
-  justify-content: baseline;
-  align-items: center;
-  background-color: var(--background-color);
-  border: 4px solid var(--border-color);
-  border-radius: 50px;
-  overflow: hidden;
-  z-index: 5;
-
-  --border-color: #D76A71;
-  --background-color: rgba(255, 255, 255, 0.8);
-}
-
-.color-mode-button {
-  position: relative;
-  display: flex;
-  height: 90%;
-  aspect-ratio: 1/1;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--border-color);
-  border: 3px solid var(--background-color);
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.color-mode-button img {
-  height: 80%;
-  width: 80%;
-}
-
-/* Small Logo */
-
-.small-logo-icon {
-  position: absolute;
-  display: none;
-  top: 1%; left: 1%;
-  height: 8%;
-  aspect-ratio: 1/1;
-  z-index: 10;
-}
-
-/* Menu */
-
-.menu-page {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 70%;
-  width: 40%;
-  justify-content: center;
-  align-items: center;
-}
-
-.menu-page img {
-  height: calc(144px * 3);
-  aspect-ratio: 1/1;
-}
-
-.menu-page .button-container {
-  display: flex;
-  flex-direction: column;
-  height: 90%;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  gap: 10%;
-}
-
-.menu-page button {
-  border-radius: 25px;
-  height: 25%;
-  width: 50%;
-  font-size: 1.5rem;
-  color: var(--text-color);
-  background-color: var(--button-color);
-  border: 2px solid white;
-}
-
-.menu-page button:hover {
-  transform: scale(1.05);
-}
-
-.menu-page button:active {
-  transform: scale(1.05);
-}
-
-/* Directory */
-
-.directory-page {
-  position: relative;
-  display: none;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.directory-page .button-container {
-  display: flex;
-  height: 70%;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  margin: 40px 10px 10px 10px;
-  gap: 4%;
-}
-
-.directory-page button {
-  border-radius: 50%;
-  height: 80%;
-  aspect-ratio: 1/1;
-  font-size: 1.5rem;
-  background-color: var(--button-color);
-  border: 4px solid var(--border-color);
-  color: var(--text-color);
-}
-
-.directory-page button:hover {
-  transform: scale(1.05);
-}
-
-.directory-page .button-container span {
-  font-size: 70px;
-  font-family: 'Stack Sans Headline';
-  margin-bottom: 100%;
-}
-
-/* whats quiz butt */
-
-/* Profile */
-
-.profile-page {
-  position: absolute;
-  display: none;
-  top: 0; left: 0;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 5;
-  pointer-events: none;
-}
-
-.profile-page .user-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-page .text-container {
-  display: flex;
-  height: 20%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  gap: 6%;
-}
-
-.profile-page .title-text {
-  position: absolute;
-  top: 4%; left: 30%;
-  font-size: 4rem;
-  font-family: 'montserrat';
-  color: white;
-}
-
-.profile-page .block-container {
-  display: flex;
-  height: 62.5%;
-  width: 80%;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  gap: 15%;
-}
-
-.profile-page .user-block {
-  display: flex;
-  height: 100%;
-  width: 15%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-page button.user {
-  border: 6px solid white;
-  border-radius: 80%;
-  height: 70%;
-  aspect-ratio: 1/1;
-  font-size: 1.5rem;
-  background-color: white;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  transition: all 0.25s ease;
-  box-shadow: 0px 0px 82px 4px rgba(255,255,255,0.33);
-  z-index: 10;
-  pointer-events: all;
-}
-
-.profile-page .username {
-  font-size: 2.5rem;
-  font-family: 'montserrat';
-  color: white;
-  opacity: 0%;
-  transition: all 0.5s ease-out;
-}
-
-.profile-page .user-block:hover button.user{
-  transform: scale(1.20);
-}
-
-.profile-page .user-block:hover span.username{
-  opacity: 100%;
-  transform: translateY(100%) scale(1.25);
-}
-
-/* Projects */
-
-.projects-page {
-  position: relative;
-  display: none;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.projects-page .button-container {
-  display: flex;
-  height: 70%;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  margin: 40px 10px 10px 10px;
-  gap: 4%;
-}
-
-.projects-page button {
-  border-radius: 50%;
-  height: 80%;
-  aspect-ratio: 1/1;
-  font-size: 1.5rem;
-  background-color: var(--button-color);
-  border: 4px solid var(--border-color);
-  color: var(--text-color);
-}
-
-.projects-page button:hover {
-  transform: scale(1.05);
-}
-
-.projects-page .button-container span {
-  font-size: 2rem;
-  margin-bottom: 100%;
-}
-
-/* Animations */
-
-@keyframes transition {
-  0% {
-    opacity: 0%;
+colorModeButton.addEventListener("click", async () => {
+  const colorMode = colorModeButton.getAttribute("data-color");
+  const colorModeIcon = colorModeButton.querySelector(".color-mode-button");
+  if (colorMode == "light") {
+    colorModeIcon.classList.remove("color-mode-slide-left");
+    colorModeIcon.classList.add("color-mode-slide-right");
+    await Delay(0.49);
+    colorModeIcon.style.transform = "translateX(100%)";
+    colorModeButton.setAttribute("data-color", "dark");
+    SetDarkMode();
+  } else {
+    colorModeIcon.classList.remove("color-mode-slide-right");
+    colorModeIcon.classList.add("color-mode-slide-left");
+    await Delay(0.49);
+    colorModeIcon.style.transform = "translateX(0%)";
+    colorModeButton.setAttribute("data-color", "light");
+    SetLightMode();
   }
-  50% {
-    opacity: 100%;
+})
+
+function SetDarkMode() {
+  rootElement.style.setProperty('--background-color', '#1e1e1e');
+  rootElement.style.setProperty('--button-color', '#DDDDDE');
+  rootElement.style.setProperty('--text-color', '#1A1C25');
+
+  colorModeButton.style.setProperty('--border-color', 'white');
+  colorModeButton.style.setProperty('--background-color', 'rgba(62, 62, 62, 0.8)');
+
+  colorModeImg.src = "graphics/svgs/moon-mode.svg";
+
+  overlayContainer.style.setProperty('--background-color', '#1e1e1e');
+  overlayContainer.style.setProperty('--text-color', 'white');
+  rootElement.style.setProperty('--profile-backdrop', 'rgba(0, 0, 0, 0.33)');
+}
+
+function SetLightMode() {
+  rootElement.style.setProperty('--background-color', 'white');
+  rootElement.style.setProperty('--button-color', '#2F333F');
+  rootElement.style.setProperty('--text-color', 'white');
+
+  colorModeButton.style.setProperty('--border-color', '#D76A71');
+  colorModeButton.style.setProperty('--background-color', 'rgba(255, 255, 255, 0.8)');
+
+  colorModeImg.src = "graphics/svgs/sun-mode.svg";
+
+  overlayContainer.style.setProperty('--background-color', 'white');
+  overlayContainer.style.setProperty('--text-color', '#454545');
+  rootElement.style.setProperty('--profile-backdrop', 'rgba(255, 255, 255, 0.33)');
+}
+
+document.addEventListener('click', async (event) => {
+  if (!event.target.classList.value.includes("transition-button")) {
+    return;
   }
-  100% {
-    opacity: 0%;
+  transitionPage.style.animation = "transition 1s linear";
+  await Delay(1);
+  transitionPage.style.animation = null;
+})
+
+let activatedMenu = false;
+for (const button of [guestButton, adminButton]) {
+  if (!button) continue;
+  if (!activatedMenu) {
+    button.addEventListener("click", async () => {
+      await Delay(0.5);
+      menuPage.style.display = "none";
+      directoryPage.style.display = "flex";
+      ActivateDirectory();
+    })
+    activatedMenu = true;
+  }  
+}
+
+let activatedDirectory = false;
+function ActivateDirectory() {
+  const quizButton = directoryPage.querySelector("button.quiz-button");
+  const activityButton = directoryPage.querySelector("button.activity-button");
+  const projectButton = directoryPage.querySelector("button.project-button");
+
+  smallLogoIcon.style.display = "block";
+
+  if (!activatedDirectory) {
+    smallLogoIcon.addEventListener("click", async () => {
+      await Delay(0.5);
+      directoryPage.style.display = "none";
+      menuPage.style.display = "flex";
+      smallLogoIcon.style.display = "none";
+    });
+    for (const button of [quizButton, activityButton, projectButton]) {
+      if (!button) continue;
+      button.addEventListener("click", () => {
+        console.log(button.classList)
+        const type = button.getAttribute("data-type");
+        if (button.classList.value.includes("project-button")) {
+          // ActivateProject();
+          ActivateProfile(type);
+          return;
+        } else {
+          ActivateProfile(type);
+        }
+      })
+    }
+    activatedDirectory = true;
   }
 }
 
-.gogo {
-  animation: gogo 0.75s ease-in-out;
-}
+const dirButtonContainer = directoryPage.querySelector(".button-container");
 
-.gaga {
-  animation: gaga 0.75s ease-in-out;
-}
-
-@keyframes gogo {
-  0% {
-    opacity: 0;
+function ClickOut(reset = false) {
+  if (reset) {
+    profilePage.style.display = "none";
   }
-  100% {
-    opacity: 1;
+  dirButtonContainer.style.pointerEvents = "all";
+  directoryPage.removeEventListener("click", ClickOut);
+}
+
+let activatedProfile = false;
+let buttonHandlers = new Map();
+
+async function ActivateProfile(type) {
+  smallLogoIcon.style.display = "none";
+  const users = profilePage.querySelectorAll("button");
+  await Delay(0.1);
+
+  directoryPage.addEventListener("click", ClickOut);
+  dirButtonContainer.style.pointerEvents = "none";
+  directoryPage.style.pointerEvents = "none";
+
+  let userList = ["jonathan", "elie", "lander", "angelo"];
+  let exclusionList = [];
+  for (const user of userList) {
+    const blogs = await FindBlogs(user, type);
+    const isEmpty = blogs === null || blogs?.length < 1 ? true : false;
+    if (isEmpty) {
+      exclusionList.push(user);
+    }
   }
-}
 
-@keyframes gaga {
-  0% {
-    opacity: 1;
+  async function ButtonFunctionality(user, type) {
+    contentPage.querySelector("div.profile-picture img").src = "graphics/profile/default-profile.webp";
+    await Delay(0.5);
+    profilePage.style.display = "flex";
+    ActivateContent(user, type);
   }
-  100% {
-    opacity: 0;
+
+  users.forEach(button => {
+    button.parentElement.style.display = "flex"; 
+  });
+
+  users.forEach(button => {
+    if (buttonHandlers.has(button)) {
+      button.removeEventListener("click", buttonHandlers.get(button));
+      buttonHandlers.delete(button);
+    }
+  });
+
+  for (const button of users) {
+    const user = button.getAttribute("data-user");
+    if (!button) continue;
+
+    if (exclusionList.includes(user)) {
+      console.log("Removing", user);
+      button.parentElement.style.display = "none";
+      continue;
+    }
+
+    const handler = async () => {
+      await ButtonFunctionality(user, type);
+    };
+
+    button.addEventListener("click", handler); 
+    buttonHandlers.set(button, handler);
   }
+
+  directoryPage.style.pointerEvents = "all";
+  profilePage.style.display = "flex";
+  activatedProfile = true;
 }
 
-.color-mode-slide-right {
-  animation: cmsr 0.7s ease-in-out;
+function ActivateProject() {
 }
 
-.color-mode-slide-left {
-  animation: cmsl 0.7s ease-in-out;
-}
-
-@keyframes cmsr {
-  0% {
-    transform: translateX(0%);
-  }
-  90% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes cmsl {
-  0% {
-    transform: translateX(100%);
-  }
-  90% {
-    transform: translateX(0%);
-  }
-}
-
-/* Content */
-
-.content-page {
-  position: relative;
-  display: none;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  justify-content: flex-start;
-  overflow: hidden;
-
-  --cell-color: #C0677D;
-}
-
-.header-container {
-  position: relative;
-  display: flex;
-  height: 47.5%;
-  width: 100%;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.1);
-  gap: 2%;
-  padding-right: 5%;
-}
-
-.header-container .profile-picture {
-  position: relative;
-  height: 65%;
-  aspect-ratio: 1/1;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: 5px dotted rgba(0, 0, 0, 0.0);
-  border-radius: 50%;
-  box-shadow: 0px 0px 82px 4px rgba(255, 255, 255, 0.33);
-  overflow: none;
-  z-index: 5;
-}
-
-.header-container .profile-picture img {
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-  z-index: 5;
-}
-
-/* 
-.header-container .profile-picture::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -15%;
-  height: 100%;
-  width: 100%;
-  border: 5px solid rgba(255, 255, 255, 0.25);
-  box-shadow: none;
-  z-index: -1;
-}
-
-.header-container .profile-picture::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -30%;
-  height: 100%;
-  width: 100%;
-  border: 5px solid rgba(255, 255, 255, 0.125);
-  box-shadow: none;
-  z-index: -2;
-} */
-
-.header-container .profile-picture.click-profile,
-.overlay-container .profile-picture.click-profile {
-  animation: click-profile 1.5s ease-out;
-}
-
-@keyframes click-profile {
-  0% {
-    transform: rotateZ(0deg);
-    border: 5px dotted white;
-    box-shadow: 0px 2px 10px rgb(0, 0, 0, 0.5);
-  }
-  100% {
-    transform: rotateZ(360deg);
-  }
-}
-
-.header-container .text-container {
-  display: flex;
-  flex-direction: column;
-  height: 70%;
-  width: 40%;
-  justify-content: center;
-  align-items: left;
-  margin: 10px 4% 0px 0px;
-  padding: 0px 50px 0px 50px;
-  gap: 5%;
-
-  --b: 8px;
-  --c: rgba(255, 255, 255, 0.95);
-  --w: 35px;
-
-  border: var(--b) solid #0000;
-  --_g: #0000 90deg,var(--c) 0;
-  --_p: var(--w) var(--w) border-box no-repeat;
-  background:
-    conic-gradient(from 180deg at top var(--b) right var(--b),var(--_g)) 100% 0 / var(--_p),
-    conic-gradient(from 0deg at bottom var(--b) left var(--b),var(--_g)) 0 100% / var(--_p);
-}
-
-.header-container .text-container span {
-  font-size: 1.5rem;
-  color: white;
-  text-align: justify;
-  white-space: pre-wrap;
-}
-
-.header-container .text-container .username {
-  display: flex;
-  align-items: center;
-  gap: 5%;
-}
-
-.header-container .text-container .username * {
-  font-weight: 500;
-  font-size: 3.5rem;
-}
-
-.header-container .text-container .username span.sub {
-  font-weight: bold;
-  font-size: 1rem;
-  color: rgb(0, 0, 0);
-  mix-blend-mode: lighten;
-  text-transform: uppercase;
-  padding: 10px;
-  background-color: white;
-  border: 4px solid white;
-  border-radius: 50px;
-}
-
-/* Back Button */
-
-.content-page .back-button {
-  position: absolute;
-  display: none;
-  top: 1%; left: 1%;
-  height: 8%;
-  width: 8%;
-  background-color: var(--border-color);
-  border: 3px solid var(--text-color);
-  border-radius: 25px;
-  font-size: 1.5rem;
-  color: var(--text-color);
-  z-index: 10;
-  transition-duration: 0.3s;
-}
-
-.content-page .back-button:hover {
-  background-color: white;
-  color: black;
-}
-
-/* Navigation Buttons */
-
-.content-page .navigation-container {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  top: 11%; left: 1%;
-  height: 50%;
-  width: 5%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  z-index: 10;
-  overflow: hidden;
-  gap: 2.5%;
-}
-
-.navigation-button {
-  display: flex;
-  height: 15%;
-  aspect-ratio: 1/1;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-}
-
-.navigation-button img {
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
-}
-
-.navigation-button:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-/* Content Blocks */
-
-.body-container {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  height: 52.5%;
-  width: 100%;
-  justify-content: flex-start;
-  align-items: unset;
-  overflow: hidden;
-}
-
-.body-container .block-container {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  max-width: min-content;
-  min-height: 300px;
-  align-items: stretch;
-  gap: 45px;
-  padding: 0 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  scroll-padding: 5px;
-}
-
-@container (min-width: 800px) {
-  .body-container .block-container {
-    justify-content: center;
-  }
-}
-
-.block-container .blog-cell {
-  position: relative;
-  height: 90%;
-  min-height: 250px;
-  width: 30%;
-  min-width: 400px;
-  border: 2px solid var(--cell-color);
-  background-color: var(--cell-color);
-  border-radius: 30px;
-  margin: 20px 0px 20px 0px;
+let activatedContent = false;
+async function ActivateContent(user, type) {
+  const backButton = contentPage.querySelector(".back-button");
   
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  color: white;
-  font-family: 'montserrat';
-  font-size: 1.2rem;
-  overflow: hidden;
+  smallLogoIcon.style.display = "none";
+  backButton.style.display = "block";
 
-  --scroll-background: white;
+  directoryPage.style.display = "none";
+  profilePage.style.display = "none";
+  contentPage.style.display = "flex";
+
+  const headerContainer = contentPage.querySelector(".header-container");
+  const profilePicture = contentPage.querySelector("div.profile-picture");
+  const usernameContainer = contentPage.querySelector("span.username");
+  const descriptionContainer = contentPage.querySelector("span.description");
+  const blockContainer = contentPage.querySelector(".block-container");
+
+  // Profile Header Contents
+
+  function GetUserInfo(user) {
+    let background = null; let cellColor = null;
+    let picture = null;
+    let username = ''; let nickname = '';
+    let description = '';
+    let blogTitle = '';
+    switch (user) {
+      case "jonathan":
+        background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
+        picture = "graphics/profile/schwarz-profile.jpg";
+        icon = "graphics/icons/schwarz-white.svg";
+        username = "Schwarzwald";
+        nickname = "Jonathan C.";
+        description = "Formerly Grievous——presently a Faithful Endorser;\nA student who's interested in making all sorts of things for fun;\nSlightly sentimental and part-ways delusional.";
+        cellColor = "#cb5a70";
+        blogTitle = "Test";
+        break;
+      case "elie":
+        background = "linear-gradient(360deg, rgba(253, 81, 29, 1) 0%, rgba(252, 176, 69, 1) 100%)";
+        picture = "graphics/profile/elie-profile.png";
+        icon = "graphics/icons/elie-white.svg";
+        username = "Eleanor";
+        nickname = "Elie C.";
+        description = "Showcasing a quiet demeanor, what lies beneath is an array of skills and imagination that remained bottled.\nA student with an overwhelming sense of curiosity and a keen thirst for knowledge.\n——No matter how difficult it is attain.";
+        cellColor = "#fd6d29";
+        blogTitle = "";
+        break;
+      case "lander":
+        background = "linear-gradient(90deg,rgba(39, 126, 161, 1) 0%, rgba(17, 214, 99, 1) 50%, rgba(237, 221, 83, 1) 100%)";
+        picture = "graphics/profile/lander-profile.jpg";
+        icon = "graphics/icons/lander-white.svg";
+        username = "Jungkick";
+        nickname = "Lander C.";
+        description = "A jolly student whose hobby is making people happy.\nI also sing and like fashion.\nBut when it comes to school, haha no comment.";
+        cellColor = "#1bd662";
+        blogTitle = "";
+        break;
+      case "angelo":
+        background = "linear-gradient(0deg, rgba(18, 218, 222, 1) 0%, rgba(65, 127, 209, 1) 100%)";
+        picture = "graphics/profile/angelo-profile.jpg";
+        icon = "graphics/icons/angelo-white.svg";
+        username = "Gelo";
+        nickname = "Angelo N.";
+        description = "A shy but softhearted student who loves gaming and listening to people’s stories. I enjoy making others feel heard, even if I’m not the most confident. I value memories, care deeply, and learn from every experience even the tough ones";
+        cellColor = "#5bb5fd";
+        blogTitle = "";
+        break;
+    }
+    return {
+      background: background,
+      picture: picture,
+      icon: icon,
+      username: username,
+      nickname: nickname,
+      description: description,
+      cellColor: cellColor
+    }
+  }
+
+  const userInfo = GetUserInfo(user);
+  
+  headerContainer.style.background = userInfo.background;
+  contentPage.style.setProperty("--cell-color", userInfo.cellColor);
+  overlayContainer.style.setProperty("--cell-color", userInfo.cellColor);
+  blockContainer.style.setProperty("--scroll-background", userInfo.background);
+  profilePicture.querySelector("img").src = userInfo.picture;
+
+  const main = usernameContainer.querySelector(".main");
+  if (usernameContainer.querySelector(".main")) {
+    const sub = usernameContainer.querySelector(".sub");
+    main.textContent = userInfo.username;
+    sub.textContent =userInfo. nickname;
+  } 
+  else {
+    usernameContainer.textContent = userInfo.username;
+  }
+
+  descriptionContainer.textContent = userInfo.description;
+
+  function CenterScroll(blockContainer) {
+    blockContainer.scrollLeft = 0;
+    console.log("Starting Scroll", blockContainer.scrollLeft);
+
+    const targetScroll = (blockContainer.scrollWidth - blockContainer.clientWidth) / 2;
+
+    blockContainer.scrollLeft = targetScroll;
+
+    console.log("Ending Scroll", blockContainer.scrollLeft);
+  }
+
+  function CenterScrollContainer(blockContainer) {
+    const bodyContainer = document.querySelector('.body-container');
+
+    blockContainer.style.margin = '0';
+
+    console.log(blockContainer.scrollWidth, bodyContainer.clientWidth);
+
+    if (blockContainer.scrollWidth <= bodyContainer.clientWidth) {
+      console.log("Setting Body to Center")
+      bodyContainer.style.alignItems = "center";
+    } else {
+      console.log("Setting Body to None")
+      bodyContainer.style.alignItems = "unset";
+    }
+  }
+
+  // Interactions
+
+  const navigationContainer = contentPage.querySelector(".navigation-container");
+  let exclusionList = ["jonathan", "elie", "lander", "angelo"];
+  exclusionList = exclusionList.filter(item => item !== user.trim());
+
+  const navButtons = Array.from(navigationContainer.querySelectorAll("button.navigation-button"));
+
+  for (let i = 0; i < navButtons.length && i < exclusionList.length; i++) {
+    const button = navButtons[i];
+    const targetUser = exclusionList[i];
+
+    const blogs = await FindBlogs(targetUser, type);
+    const isEmpty = blogs === null || blogs.length < 1 ? true : false;
+    console.log(isEmpty, targetUser, type, blogs);
+
+    if (isEmpty) {
+      button.style.pointerEvents = "none";
+      button.style.opacity = "50%";
+      continue;
+    }
+
+    button.setAttribute("data-shuffle", targetUser.trim());
+    button.querySelector("img").src = GetUserInfo(targetUser).icon;
+
+    if (!activatedContent) {
+      button.addEventListener("click", async () => {
+        const shuffleUser = button.getAttribute("data-shuffle");
+        contentPage.querySelector("div.profile-picture img").src = "graphics/profile/default-profile.webp";
+        await Delay(0.5);
+        console.log("Activating", shuffleUser);
+        ActivateContent(shuffleUser, type);
+      });
+    }
+  }
+
+  if (!activatedContent) {
+    let isScrolling = false;
+
+    blockContainer.addEventListener('wheel', (event) => {
+      if (isScrolling) return;
+
+      event.preventDefault();
+      isScrolling = true;
+
+      blockContainer.scrollLeft += event.deltaY * 2 * (blockContainer.clientWidth / 2);
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    });
+
+    profilePicture.querySelector("img").addEventListener("click", async () => {
+      console.log("Triggering Animation!");
+      profilePicture.classList.add("click-profile");
+      await Delay(1.6);
+      profilePicture.classList.remove("click-profile");
+    })
+
+    backButton.addEventListener("click", async () => {
+      await Delay(0.5);
+      contentPage.style.display = "none";
+      directoryPage.style.display = "flex";
+      ClickOut(false);
+      ActivateDirectory();
+    })
+    activatedContent = true;
+  }
+
+  await InstantiateBlogs(user, type);
+  
+  await Delay(0.1);
+  
+  CenterScrollContainer(blockContainer);
+  CenterScroll(blockContainer);
 }
 
+// Blog Pasting
 
-.block-container .blog-cell img {
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%;
-  object-position: center;
-  object-fit: cover;
-  z-index: 5;
-  overflow: hidden;
+async function FetchBlogs(user) {
+  try {
+    const response = await fetch('./blogs.json');
+    const data = await response.json();
+    return data.filter((b) => b.user === user);
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return [];
+  }
 }
 
-.blog-cell .cell-header {
-  position: absolute;
-  display: flex;
-  top: 0; left: 0;
-  height: 35%;
-  width: 100%;
-  justify-content: center;
-  background-color: var(--background-color);
-  box-shadow: 0 0px 20px 10px var(--profile-backdrop);
-  z-index: 7;
+async function FindBlogs(user, type) {
+  const blogs = await FetchBlogs(user);
+  const userData = blogs.find(u => u.user === user);
+  if (userData) {
+    return filteredBlogs = userData.blogs.filter((b) => b.type === type);
+  } else {
+    return null;
+  }
 }
 
-.cell-header span {
-  display: flex;
-  font-family: 'lilita one';
-  font-size: 4.35rem;
-  color: var(--cell-color);
-  white-space: nowrap;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 10px 10px 10px;
-  width: 100%;
+async function InstantiateBlogs(user, type = "project") {
+  const filteredBlogs = await FindBlogs(user, type);
 
-  text-wrap: nowrap;
+  function ScaleText(element) {
+    const container = element.parentElement;
+    if (!container) return;
+
+    let fontSize = 70;
+    element.style.fontSize = "4.35rem"
+
+    while (element.scrollWidth > container.clientWidth && fontSize > 8) {
+      fontSize -= 2.5;
+      element.style.fontSize = fontSize + 'px';
+    }
+  }
+
+  function ScaleImage(element, scale) {
+    if (!element.complete || element.naturalHeight === 0) {
+        element.onload = function() {
+            ScaleImage(element);
+        };
+        return;
+    }
+    
+    element.style.transform = `scale(${scale})`;
+    element.style.transformOrigin = 'center center';
+
+  }
+
+  const blockContainer = contentPage.querySelector(".block-container");
+  blockContainer.innerHTML = '';
+
+  for (let i = 0; i < filteredBlogs.length; i++) {
+    const blog = filteredBlogs[i];
+    const blogTemplate = document.querySelector("template[value='blog-cell']").content.cloneNode(true);
+
+    const blogCell = blogTemplate.querySelector(".blog-cell");
+    const blogTitle = blogTemplate.querySelector("span.blogTitle");
+    const thumbnailImg = blogTemplate.querySelector("img.thumbnail");
+
+    if (blogCell && blogTitle && thumbnailImg) {
+      thumbnailImg.src = blog.image;
+      if (blog.offset) {
+        thumbnailImg.style.bottom = blog.offset[0] + "%";
+        thumbnailImg.style.left = blog.offset[1] + "%";
+      }
+      blogTitle.textContent = blog.title;
+
+      blockContainer.appendChild(blogTemplate);
+
+      requestAnimationFrame(() => {
+        if (blog.scale) {
+          ScaleImage(thumbnailImg, blog.scale);
+        }
+        ScaleText(blogTitle);
+      });
+    }
+
+    blogCell.addEventListener("click", async () => {
+      console.log("Hello World!");
+      overlayContainer.classList.add("gogo");
+      await Delay(0.65);
+      overlayContainer.style.opacity = 1;
+      overlayContainer.style.pointerEvents = "all";
+
+      overlayContainer.classList.remove("gogo");
+      
+      console.log("Blog Clicked", blog);
+      ActivateOverlay(blog);
+    })
+  }
 }
 
-/* Scrollbar */
+let activatedOverlay = false;
+function ActivateOverlay(blog) {
+  const blogContainer = overlayContainer.querySelector(".blog-container");
+  const textContainer = overlayContainer.querySelector(".text-container");
+  const titleContainer = textContainer.querySelector(".title");
+  const descriptionContainer = textContainer.querySelector(".description");
+  const profilePicture = overlayContainer.querySelector(".profile-picture");
+  const footerContainer = overlayContainer.querySelector(".footer-container");
 
-.block-container::-webkit-scrollbar {
-  width: 12px;
-  height: 15px;
-}
+  function ScaleText(element) {
+    const container = element.parentElement;
+    if (!container) return;
 
-.block-container::-webkit-scrollbar-track {
-  background: var(--scroll-background);
-}
+    let fontSize = 80;
+    element.style.fontSize = "4.35rem"
 
-.block-container::-webkit-scrollbar-thumb {
-  background: rgb(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
+    while (element.scrollWidth > container.clientWidth && fontSize > 8) {
+      fontSize -= 2.5;
+      element.style.fontSize = fontSize + 'px';
+    }
+  }
 
-.block-container::-webkit-scrollbar-thumb:hover {
-  background: rgb(0, 0, 0, 0.5);
-}
-
-.overlay-container {
-  position: absolute;
-  display: none;
-  top: 0; left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
-
-/* Overlay */
-
-.overlay-container {
-  position: absolute;
-  display: flex;
-  top: 0; left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-  align-items: center;
-  z-index: 10;
-  opacity: 0;
-  gap: 1.5%;
-  pointer-events: none;
-
-  --background-color: white;
-  --text-color: #454545;
-}
-
-.overlay-container .blog-container {
-  height: 85%;
-  aspect-ratio: 6/5;
-  background-color: white;
-  border-radius: 30px;
-  border: 5px solid var(--cell-color);
-  margin: 0% 2.7% 0% 2.75%;
-  -webkit-box-shadow:0px 0px 42px 4px rgba(255,255,255,0.48);
-  -moz-box-shadow: 0px 0px 42px 4px rgba(255,255,255,0.48);
-  box-shadow: 0px 0px 42px 4px rgba(255,255,255,0.48);
-  display: flex;
-  overflow: hidden;
-}
-
-.overlay-container .blog-container img {
-  bottom: 0; left: 0;
-  width: 100%;
-  object-position: center;
-  object-fit: cover;
-  z-index: 5;
-  overflow: hidden;
-}
-
-.overlay-container .info-container {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 43%;
-  background: var(--background-color);
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 30px;
-  overflow: hidden;
-}
-
-.overlay-container img.profile-picture {
-  height: 10%;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  border: 5px dotted var(--cell-color);
-  box-shadow: 0px 0px 82px 4px var(--profile-backdrop);
-  margin: 5.25% 0% 0% 5%;
-}
-
-.overlay-container .text-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 80%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-  overflow: hidden;
-}
-
-.overlay-container .footer-container {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 15%;
-  width: 100%;
-  background: none;
-  border-top: 5px solid rgba(0, 0, 0, 0.1);
-}
-
-.overlay-container .text-container .title{
-  font-family: 'stack sans headline';
-  font-size: 5rem; /*rem: 1rem, 1.25rem 2rem */
-  color: var(--cell-color);
-  margin-top: 6.5%;
-}
-
-.overlay-container .text-container .description {
-  font-family: 'montserrat';
-  height: 50%;
-  width: 90%;
-  font-size: 2rem;
-  color: var(--text-color);
-  text-align: justify;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding-right: 10px;
-}
-
-/* Scrollbar */
-
-.overlay-container .text-container .description::-webkit-scrollbar {
-  width: 12px;
-  height: 15px;
-}
-
-.overlay-container .text-container .description::-webkit-scrollbar-track {
-  background: var(--cell-color);
-}
-
-.overlay-container .text-container .description::-webkit-scrollbar-thumb {
-  background: rgb(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.overlay-container .text-container .description::-webkit-scrollbar-thumb:hover {
-  background: rgb(0, 0, 0, 0.5);
+  blogContainer.querySelector("img").src = blog.image;
+  profilePicture.src = contentPage.querySelector("div.profile-picture img").src;
+  titleContainer.textContent = blog.title;
+  ScaleText(titleContainer);
+  descriptionContainer.textContent = blog.description;
+  footerContainer.style.background = contentPage.style.getPropertyValue("--cell-color");
+  
+  if (!activatedOverlay) {
+    overlayContainer.addEventListener("click", async () => {
+      console.log("Bye World!");
+      overlayContainer.classList.add("gaga");
+      
+      await Delay(0.65);
+      overlayContainer.style.pointerEvents = "none";
+      overlayContainer.style.opacity = 0;
+      
+      overlayContainer.classList.remove("gaga");
+    })
+  }
 }
