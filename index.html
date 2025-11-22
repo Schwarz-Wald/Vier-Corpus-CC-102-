@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html> 
 
-<link rel="icon" type="image/x-icon" href="/graphics/VIER.png">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Axiom: Student Portfolio</title>
   <link href="./style.css" rel="stylesheet" type="text/css"/>
   <script src="./script.js" defer></script>
-  <script scr="particles/particles.js"></script>
+  <script src="particles/particles.js"></script>
+  <link rel="icon" type="image/x-icon" href="graphics/VIER.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -139,7 +139,7 @@
     </div>
     <div class="overlay-container">
       <div class="blog-container">
-        <img src="./graphics/default-profile.webp">
+        <img src="./graphics/profile/default-profile.webp">
       </div>
       <div class="info-container">
         <img class="profile-picture" src="./graphics/profile/schwarz-profile.jpg">
@@ -154,6 +154,22 @@
     </div>
     <div class="transition-container">
       <h1 class="transition-box"></h1>
+    </div>
+    <div class="popup-container">
+      <div class="popup-box">
+        <div class="header-container">
+          <span class="title">Warning</span>
+        </div>
+        <div class="content-container">
+          <span class="description">You are viewing this on an incompatible aspect ratio.<br>It is advised to view this on a 16:9 aspect ratio.</span>
+          <button class="close-button">Continue</button>
+        </div>
+      </div>
+      <div class="popup-notification">
+        <img src="https://i.imgur.com/EwI3OT0.png" class="meigu">
+        <span class="description">
+        </span>
+      </div>
     </div>
   </div>
 </body>
