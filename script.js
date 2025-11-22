@@ -4,7 +4,7 @@ const profilePage = document.querySelector("div.profile-page");
 const projectsPage = document.querySelector("div.projects-page");
 const contentPage = document.querySelector("div.content-page");
 const transitionPage = document.querySelector("div.transition-container");
-const overlayContainer = document.querySelector(".overlay-container");
+const overlayPage = document.querySelector(".overlay-container");
 const popupContainer = document.querySelector(".popup-container");
 if (!menuPage) {
     throw new Error("Menu container not found");
@@ -100,14 +100,15 @@ function SetDarkMode() {
 
   colorModeImg.src = "graphics/svgs/moon-mode.svg";
 
-  overlayContainer.style.setProperty('--background-color', '#1e1e1e');
-  overlayContainer.style.setProperty('--text-color', 'white');
+  overlayPage.style.setProperty('--background-color', '#1e1e1e');
+  overlayPage.style.setProperty('--text-color', 'white');
   rootElement.style.setProperty('--profile-backdrop', 'rgba(0, 0, 0, 0.33)');
 
   UpdateProfile();
 }
 
 function SetLightMode() {
+  isDark = false;
   rootElement.style.setProperty('--background-color', 'white');
   rootElement.style.setProperty('--button-color', '#2F333F');
   rootElement.style.setProperty('--text-color', 'white');
@@ -117,38 +118,37 @@ function SetLightMode() {
 
   colorModeImg.src = "graphics/svgs/sun-mode.svg";
 
-  overlayContainer.style.setProperty('--background-color', 'white');
-  overlayContainer.style.setProperty('--text-color', '#454545');
+  overlayPage.style.setProperty('--background-color', 'white');
+  overlayPage.style.setProperty('--text-color', '#454545');
   rootElement.style.setProperty('--profile-backdrop', 'rgba(255, 255, 255, 0.33)');
-    
+
   UpdateProfile();
 }
 
 function UpdateProfile() {
     const profilePicture = contentPage.querySelector("div.profile-picture");
-    const imgSrc = profilePicture.querySelector("img").src;
-    let schwarz = "graphics/profile/schwarz-profile.jpg";
-    let variant = "graphics/profile/schwarz-profile-variant.png";
-    let isValidUser = (imgSrc === schwarz) || (imgSrc === variant) ? true : false;
+    let isValidUser = profilePicture.getAttribute("data-user") === "jonathan" ? true : false;
     console.log(contentPage.style.display === "flex", isValidUser);
+  console.log(profilePicture.getAttribute("data-user"));
     if (contentPage.style.display === "flex" && isValidUser) {
         let background; let picture; let cellColor;
-        
+
         if (!isDark) {
           background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
-          picture = schwarz;
+          picture = "graphics/profile/schwarz-profile.jpg";
           cellColor = "#cb5a70";
         } else {
           background = "linear-gradient(90deg,rgba(74, 183, 204, 1) 0%, rgba(114, 125, 145, 1) 50%, rgba(19, 23, 33, 1) 100%)";
-          picture = variant;
+          picture = "graphics/profile/schwarz-profile-variant.png";
           cellColor = "#4ab2c7ff";
         }
 
         const headerContainer = contentPage.querySelector(".header-container");
 
         headerContainer.style.background = background;
-        profilePicture.querySelector(img).src = picture;
-        overlayContainer.style.setProperty("--cell-color", cellColor);
+        profilePicture.querySelector("img").src = picture;
+        contentPage.style.setProperty("--cell-color", cellColor);
+        overlayPage.style.setProperty("--cell-color", cellColor);
     }
 }
 
@@ -181,7 +181,7 @@ adminButton.addEventListener("click", async () => {
   popupContainer.style.backgroundColor = "transparent";
   popupContainer.querySelector(".popup-box").style.display = "none";
   popupContainer.style.display = "flex";
-  
+
   const notification = popupContainer.querySelector(".popup-notification");
   notification.style.display = "flex";
   notification.querySelector("span").textContent = "You are not authorized to access 'Admin Mode'";
@@ -189,13 +189,13 @@ adminButton.addEventListener("click", async () => {
   notification.style.animation = "leftSlide 0.5s ease-out";
   await Delay(0.5);
   notification.style.animation = null;
-  
+
   await Delay(2);
 
   notification.style.animation = "rightSlide 0.5s ease-out";
   await Delay(0.45);
   notification.style.animation = null;
-  
+
   popupContainer.style.display = "none";
   notification.style.display = "none";
   adminButton.style.pointEvents = "all";
@@ -313,7 +313,7 @@ function ActivateProject() {
 let activatedContent = false;
 async function ActivateContent(user, type) {
   const backButton = contentPage.querySelector(".back-button");
-  
+
   smallLogoIcon.style.display = "none";
   backButton.style.display = "block";
 
@@ -394,12 +394,13 @@ async function ActivateContent(user, type) {
   }
 
   const userInfo = GetUserInfo(user);
-  
+
   headerContainer.style.background = userInfo.background;
   contentPage.style.setProperty("--cell-color", userInfo.cellColor);
-  overlayContainer.style.setProperty("--cell-color", userInfo.cellColor);
+  overlayPage.style.setProperty("--cell-color", userInfo.cellColor);
   blockContainer.style.setProperty("--scroll-background", userInfo.background);
   profilePicture.querySelector("img").src = userInfo.picture;
+  profilePicture.setAttribute("data-user", user);
 
   const main = usernameContainer.querySelector(".main");
   if (usernameContainer.querySelector(".main")) {
@@ -510,9 +511,9 @@ async function ActivateContent(user, type) {
   }
 
   await InstantiateBlogs(user, type);
-  
+
   await Delay(0.1);
-  
+
   CenterScrollContainer(blockContainer);
   CenterScroll(blockContainer);
 }
@@ -563,7 +564,7 @@ async function InstantiateBlogs(user, type = "project") {
         };
         return;
     }
-    
+
     element.style.transform = `scale(${scale})`;
     element.style.transformOrigin = 'center center';
 
@@ -600,13 +601,13 @@ async function InstantiateBlogs(user, type = "project") {
 
     blogCell.addEventListener("click", async () => {
       console.log("Hello World!");
-      overlayContainer.classList.add("gogo");
+      overlayPage.classList.add("gogo");
       await Delay(0.65);
-      overlayContainer.style.opacity = 1;
-      overlayContainer.style.pointerEvents = "all";
+      overlayPage.style.opacity = 1;
+      overlayPage.style.pointerEvents = "all";
 
-      overlayContainer.classList.remove("gogo");
-      
+      overlayPage.classList.remove("gogo");
+
       console.log("Blog Clicked", blog);
       ActivateOverlay(blog);
     })
@@ -615,12 +616,12 @@ async function InstantiateBlogs(user, type = "project") {
 
 let activatedOverlay = false;
 function ActivateOverlay(blog) {
-  const blogContainer = overlayContainer.querySelector(".blog-container");
-  const textContainer = overlayContainer.querySelector(".text-container");
+  const blogContainer = overlayPage.querySelector(".blog-container");
+  const textContainer = overlayPage.querySelector(".text-container");
   const titleContainer = textContainer.querySelector(".title");
   const descriptionContainer = textContainer.querySelector(".description");
-  const profilePicture = overlayContainer.querySelector(".profile-picture");
-  const footerContainer = overlayContainer.querySelector(".footer-container");
+  const profilePicture = overlayPage.querySelector(".profile-picture");
+  const footerContainer = overlayPage.querySelector(".footer-container");
 
   function ScaleText(element) {
     const container = element.parentElement;
@@ -641,17 +642,17 @@ function ActivateOverlay(blog) {
   ScaleText(titleContainer);
   descriptionContainer.textContent = blog.description;
   footerContainer.style.background = contentPage.style.getPropertyValue("--cell-color");
-  
+
   if (!activatedOverlay) {
-    overlayContainer.addEventListener("click", async () => {
+    overlayPage.addEventListener("click", async () => {
       console.log("Bye World!");
-      overlayContainer.classList.add("gaga");
-      
+      overlayPage.classList.add("gaga");
+
       await Delay(0.65);
-      overlayContainer.style.pointerEvents = "none";
-      overlayContainer.style.opacity = 0;
-      
-      overlayContainer.classList.remove("gaga");
+      overlayPage.style.pointerEvents = "none";
+      overlayPage.style.opacity = 0;
+
+      overlayPage.classList.remove("gaga");
     })
   }
 }
