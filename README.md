@@ -3,8 +3,13 @@
 ```"It was definitely a time crunch, but it was rewarding once everything came together." - Jonathan (@Schwarzwald)```
 
 ---
-# Documentation
+# Sample
 
+<img width="1600" height="775" alt="image" src="https://github.com/user-attachments/assets/495f208d-f84a-42c2-9e86-a0f4a97969ad" />
+
+- If your Content Page looks like this, then that means it's working properly.
+
+# Documentation
 [[ Separate Canva Link ]](https://www.canva.com/design/DAG48x3CDmg/RL_IuTGZAYbVX5csarM0Cw/edit?__cf_chl_rt_tk=NT3h2tGjm4atP6fHBOikt3kvGljov5rVaOEwcgRvEwI-1763472306-1.0.1.1-D6NvXg6JBsLxO.DQYXlUO4IMlJVKTOIRaDyFBuGFQf4 "Canva Link") <br>
 - This elaborates on the design process of the website, courtesy of Elie (@Eleanor)
 
