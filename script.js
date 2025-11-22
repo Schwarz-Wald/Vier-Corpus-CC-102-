@@ -88,7 +88,9 @@ colorModeButton.addEventListener("click", async () => {
   }
 })
 
+let isDark = false;
 function SetDarkMode() {
+  isDark = true;
   rootElement.style.setProperty('--background-color', '#1e1e1e');
   rootElement.style.setProperty('--button-color', '#DDDDDE');
   rootElement.style.setProperty('--text-color', '#1A1C25');
@@ -303,14 +305,18 @@ async function ActivateContent(user, type) {
     let blogTitle = '';
     switch (user) {
       case "jonathan":
-        background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
-        picture = "graphics/profile/schwarz-profile.jpg";
+        if (!isDark) {
+          background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
+          picture = "graphics/profile/schwarz-profile.jpg";
+        } else {
+          background = "linear-gradient(90deg,rgba(74, 183, 204, 1) 0%, rgba(114, 125, 145, 1) 50%, rgba(19, 23, 33, 1) 100%)";
+          picture = "graphics/profile/schwarz-profile-variant.jpg";
+        }
         icon = "graphics/icons/schwarz-white.svg";
         username = "Schwarzwald";
         nickname = "Jonathan C.";
         description = "Formerly Grievous——presently a Faithful Endorser;\nA student who's interested in making all sorts of things for fun;\nSlightly sentimental and part-ways delusional.";
         cellColor = "#cb5a70";
-        blogTitle = "Test";
         break;
       case "elie":
         background = "linear-gradient(360deg, rgba(253, 81, 29, 1) 0%, rgba(252, 176, 69, 1) 100%)";
