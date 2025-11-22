@@ -311,6 +311,7 @@ function ActivateProject() {
 }
 
 let activatedContent = false;
+let navButtonHandlers = new Map();
 async function ActivateContent(user, type) {
   const backButton = contentPage.querySelector(".back-button");
 
@@ -442,12 +443,23 @@ async function ActivateContent(user, type) {
   }
 
   // Interactions
-
+  
   const navigationContainer = contentPage.querySelector(".navigation-container");
   let exclusionList = ["jonathan", "elie", "lander", "angelo"];
   exclusionList = exclusionList.filter(item => item !== user.trim());
 
   const navButtons = Array.from(navigationContainer.querySelectorAll("button.navigation-button"));
+
+  navButtons.forEach(button => {
+    button.style.pointerEvents = "all";
+    button.style.opacity = "100%";
+    button.removeAttribute("data-shuffle");
+
+    if (navButtonHandlers.has(button)) {
+      button.removeEventListener("click", navButtonHandlers.get(button));
+      navButtonHandlers.delete(button);
+    }
+  });
 
   for (let i = 0; i < navButtons.length && i < exclusionList.length; i++) {
     const button = navButtons[i];
@@ -466,15 +478,16 @@ async function ActivateContent(user, type) {
     button.setAttribute("data-shuffle", targetUser.trim());
     button.querySelector("img").src = GetUserInfo(targetUser).icon;
 
-    if (!activatedContent) {
-      button.addEventListener("click", async () => {
-        const shuffleUser = button.getAttribute("data-shuffle");
-        contentPage.querySelector("div.profile-picture img").src = "graphics/profile/default-profile.webp";
-        await Delay(0.5);
-        console.log("Activating", shuffleUser);
-        ActivateContent(shuffleUser, type);
-      });
-    }
+    const handler = async () => {
+      const shuffleUser = button.getAttribute("data-shuffle");
+      contentPage.querySelector("div.profile-picture img").src = "graphics/profile/default-profile.webp";
+      await Delay(0.5);
+      console.log("Activating", shuffleUser);
+      ActivateContent(shuffleUser, type);
+    };
+
+    button.addEventListener("click", handler);
+    navButtonHandlers.set(button, handler);
   }
 
   if (!activatedContent) {
@@ -507,6 +520,7 @@ async function ActivateContent(user, type) {
       ClickOut(false);
       ActivateDirectory();
     })
+
     activatedContent = true;
   }
 
