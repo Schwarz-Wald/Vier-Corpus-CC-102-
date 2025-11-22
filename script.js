@@ -103,6 +103,8 @@ function SetDarkMode() {
   overlayContainer.style.setProperty('--background-color', '#1e1e1e');
   overlayContainer.style.setProperty('--text-color', 'white');
   rootElement.style.setProperty('--profile-backdrop', 'rgba(0, 0, 0, 0.33)');
+
+  UpdateProfile();
 }
 
 function SetLightMode() {
