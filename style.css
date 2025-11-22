@@ -832,7 +832,7 @@ img:not([src]) {
 
 .overlay-container .text-container .description {
   font-family: 'montserrat';
-  height: 70%;
+  height: 50%;
   width: 90%;
   font-size: 2rem;
   color: var(--text-color);
