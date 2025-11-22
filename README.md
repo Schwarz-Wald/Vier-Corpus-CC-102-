@@ -3,6 +3,8 @@
 
 ```"It was definitely a time crunch, but it was rewarding once everything came together." - Jonathan (@Schwarzwald)```
 
+```"Please view this using a laptop or deskstop or landscape on mobile, we didn't take into account about the different device aspect ratios..." - Elie (@Eleanor)```
+
 # Sample
 
 <img width="1600" height="775" alt="image" src="https://github.com/user-attachments/assets/495f208d-f84a-42c2-9e86-a0f4a97969ad" />
