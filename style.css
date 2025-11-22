@@ -656,7 +656,7 @@ img:not([src]) {
   background-color: var(--cell-color);
   border-radius: 30px;
   margin: 20px 0px 20px 0px;
-  
+
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -863,7 +863,6 @@ img:not([src]) {
 }
 
 /* Popups */
-
 
 .popup-container {
   position: absolute;
