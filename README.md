@@ -9,6 +9,10 @@
 
 - If your Content Page looks like this, then that means it's working properly.
 
+<img width="1600" height="774" alt="image" src="https://github.com/user-attachments/assets/b8994397-b941-4bb3-8eda-87e8f1ab3768" />
+
+- Click on each Blog Post to see our insights and reflections!
+
 # Documentation
 [[ Separate Canva Link ]](https://www.canva.com/design/DAG48x3CDmg/RL_IuTGZAYbVX5csarM0Cw/edit?__cf_chl_rt_tk=NT3h2tGjm4atP6fHBOikt3kvGljov5rVaOEwcgRvEwI-1763472306-1.0.1.1-D6NvXg6JBsLxO.DQYXlUO4IMlJVKTOIRaDyFBuGFQf4 "Canva Link") <br>
 - This elaborates on the design process of the website, courtesy of Elie (@Eleanor)
