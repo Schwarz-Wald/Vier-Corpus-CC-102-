@@ -130,21 +130,25 @@ function UpdateProfile() {
     let schwarz = "graphics/profile/schwarz-profile.jpg";
     let variant = "graphics/profile/schwarz-profile-variant.png";
     let isValidUser = (imgSrc === schwarz) || (imgSrc === variant) ? true : false;
+    console.log(contentPage.style.display === "flex", isValidUser);
     if (contentPage.style.display === "flex" && isValidUser) {
-        let background; let picture;
+        let background; let picture; let cellColor;
         
         if (!isDark) {
           background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
           picture = schwarz;
+          cellColor = "#cb5a70";
         } else {
           background = "linear-gradient(90deg,rgba(74, 183, 204, 1) 0%, rgba(114, 125, 145, 1) 50%, rgba(19, 23, 33, 1) 100%)";
           picture = variant;
+          cellColor = "#4ab2c7ff";
         }
 
         const headerContainer = contentPage.querySelector(".header-container");
 
         headerContainer.style.background = background;
         profilePicture.querySelector(img).src = picture;
+        overlayContainer.style.setProperty("--cell-color", cellColor);
     }
 }
 
@@ -336,15 +340,16 @@ async function ActivateContent(user, type) {
         if (!isDark) {
           background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
           picture = "graphics/profile/schwarz-profile.jpg";
+          cellColor = "#cb5a70";
         } else {
           background = "linear-gradient(90deg,rgba(74, 183, 204, 1) 0%, rgba(114, 125, 145, 1) 50%, rgba(19, 23, 33, 1) 100%)";
           picture = "graphics/profile/schwarz-profile-variant.png";
+          cellColor = "#4ab2c7ff";
         }
         icon = "graphics/icons/schwarz-white.svg";
         username = "Schwarzwald";
         nickname = "Jonathan C.";
         description = "Formerly Grievous——presently a Faithful Endorser;\nA student who's interested in making all sorts of things for fun;\nSlightly sentimental and part-ways delusional.";
-        cellColor = "#cb5a70";
         break;
       case "elie":
         background = "linear-gradient(360deg, rgba(253, 81, 29, 1) 0%, rgba(252, 176, 69, 1) 100%)";
