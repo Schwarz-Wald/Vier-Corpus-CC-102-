@@ -118,6 +118,32 @@ function SetLightMode() {
   overlayContainer.style.setProperty('--background-color', 'white');
   overlayContainer.style.setProperty('--text-color', '#454545');
   rootElement.style.setProperty('--profile-backdrop', 'rgba(255, 255, 255, 0.33)');
+    
+  UpdateProfile();
+}
+
+function UpdateProfile() {
+    const profilePicture = contentPage.querySelector("div.profile-picture");
+    const imgSrc = profilePicture.querySelector("img").src;
+    let schwarz = "graphics/profile/schwarz-profile.jpg";
+    let variant = "graphics/profile/schwarz-profile-variant.png";
+    let isValidUser = (imgSrc === schwarz) || (imgSrc === variant) ? true : false;
+    if (contentPage.style.display === "flex" && isValidUser) {
+        let background; let picture;
+        
+        if (!isDark) {
+          background = "linear-gradient(90deg,rgba(204, 88, 110, 1) 0%, rgba(149, 157, 179, 1) 50%, rgba(79, 62, 94, 1) 100%)";
+          picture = schwarz;
+        } else {
+          background = "linear-gradient(90deg,rgba(74, 183, 204, 1) 0%, rgba(114, 125, 145, 1) 50%, rgba(19, 23, 33, 1) 100%)";
+          picture = variant;
+        }
+
+        const headerContainer = contentPage.querySelector(".header-container");
+
+        headerContainer.style.background = background;
+        profilePicture.querySelector(img).src = picture;
+    }
 }
 
 document.addEventListener('click', async (event) => {
@@ -310,7 +336,7 @@ async function ActivateContent(user, type) {
           picture = "graphics/profile/schwarz-profile.jpg";
         } else {
           background = "linear-gradient(90deg,rgba(74, 183, 204, 1) 0%, rgba(114, 125, 145, 1) 50%, rgba(19, 23, 33, 1) 100%)";
-          picture = "graphics/profile/schwarz-profile-variant.jpg";
+          picture = "graphics/profile/schwarz-profile-variant.png";
         }
         icon = "graphics/icons/schwarz-white.svg";
         username = "Schwarzwald";
