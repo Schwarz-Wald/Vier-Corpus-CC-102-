@@ -1,10 +1,11 @@
 const menuPage = document.querySelector("div.menu-page");
 const directoryPage = document.querySelector("div.directory-page");
 const profilePage = document.querySelector("div.profile-page");
-const projectsPage = document.querySelector("div.projects-page"); 
+const projectsPage = document.querySelector("div.projects-page");
 const contentPage = document.querySelector("div.content-page");
 const transitionPage = document.querySelector("div.transition-container");
 const overlayContainer = document.querySelector(".overlay-container");
+const popupContainer = document.querySelector(".popup-container");
 if (!menuPage) {
     throw new Error("Menu container not found");
 }
@@ -39,6 +40,30 @@ function PreloadImages() {
     const img = new Image();
     img.src = src;
   });
+}
+
+function CheckValidAspectRatio() {
+  const aspectRatio = window.innerWidth / window.innerHeight;
+  console.log(aspectRatio);
+
+    const pcRatios = [
+        { min: 1.5, max: 2.4 },
+        { min: 2.5, max: 4.0 }
+    ];
+
+  return pcRatios.some(ratio => aspectRatio >= ratio.min && aspectRatio <= ratio.max);
+}
+
+if (!CheckValidAspectRatio()) {
+  const popupButton = popupContainer.querySelector("button.close-button");
+  popupContainer.style.display = "flex";
+  popupButton.addEventListener("click", async () => {
+    console.log("Popup Clicked!")
+    popupContainer.style.animation = "gaga 0.75s ease-in-out";
+    await Delay(0.75);
+    popupContainer.style.animation = null;
+    popupContainer.style.display = "none";
+  })
 }
 
 PreloadImages();
@@ -115,6 +140,32 @@ for (const button of [guestButton, adminButton]) {
     activatedMenu = true;
   }  
 }
+
+adminButton.addEventListener("click", async () => {
+  console.log("Notif Coming")
+  adminButton.style.pointEvents = "none";
+  popupContainer.style.backgroundColor = "transparent";
+  popupContainer.querySelector(".popup-box").style.display = "none";
+  popupContainer.style.display = "flex";
+  
+  const notification = popupContainer.querySelector(".popup-notification");
+  notification.style.display = "flex";
+  notification.querySelector("span").textContent = "You are not authorized to access 'Admin Mode'";
+
+  notification.style.animation = "leftSlide 0.5s ease-out";
+  await Delay(0.5);
+  notification.style.animation = null;
+  
+  await Delay(2);
+
+  notification.style.animation = "rightSlide 0.5s ease-out";
+  await Delay(0.45);
+  notification.style.animation = null;
+  
+  popupContainer.style.display = "none";
+  notification.style.display = "none";
+  adminButton.style.pointEvents = "all";
+})
 
 let activatedDirectory = false;
 function ActivateDirectory() {
